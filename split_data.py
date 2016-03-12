@@ -4,6 +4,7 @@ import shutil
 
 TRAINING_DIR = "training"
 TEST_DIR = "test"
+LABEL_FILE = "_label"
 
 
 def split_data(path="raw_texts", split_ratio=0.6):
@@ -24,6 +25,9 @@ def split_data(path="raw_texts", split_ratio=0.6):
     os.mkdir(TRAINING_DIR)
     os.mkdir(TEST_DIR)
 
+    training_label_file = open(TRAINING_DIR + "/" + LABEL_FILE, 'a')
+    test_label_file = open(TEST_DIR + "/" + LABEL_FILE, 'a')
+
     for author in authors:
         articalsDir = os.path.join(path, author)
 
@@ -37,8 +41,10 @@ def split_data(path="raw_texts", split_ratio=0.6):
 
             if i < split_ratio * sizeOfArticals:
                 shutil.copy2(articalsDir + '/' + articals[i], TRAINING_DIR + "/" + author + "_" + articals[i])
+                training_label_file.write(author + "\n")
             else:
                 shutil.copy2(articalsDir + '/' + articals[i], TEST_DIR + "/" + author + "_" + articals[i])
+                test_label_file.write(author + "\n")
 
     training_size = len(os.listdir(TRAINING_DIR))
     test_size = len(os.listdir(TEST_DIR))
