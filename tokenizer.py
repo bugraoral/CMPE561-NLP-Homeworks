@@ -1,40 +1,19 @@
-import json
 import os
 import re
 import shutil
 from collections import Counter
+
+import article_util
+import file_util
 
 TOKENS_PATH_SUFFIX = "tokens"
 
 token_regex = re.compile("\w+")
 
 
-def get_article(file_name, f_encoding="windows-1254"):
-    file = open(file_name, 'r', encoding=f_encoding)
-    article = "\n".join(file.readlines()).strip()
-    file.close()
-    return article
-
-
 def tokenize(article):
     article_tokens = re.findall(token_regex, article)
     return dict(Counter(article_tokens))
-
-
-def write_tokens(filename, tokens, f_encoding='windows-1254'):
-    with open(filename, 'w', encoding=f_encoding) as file:
-        json.dump(tokens, file, ensure_ascii=False)
-
-        # with open(filename, 'wb') as handle:
-        #    pickle.dump(tokens, handle)
-
-
-def read_tokens(filename, f_encoding='windows-1254'):
-    with open(filename, 'r', encoding=f_encoding) as file:
-        return json.load(file)
-
-        # with open(filename, 'rb') as handle:
-        #    return pickle.load(handle)
 
 
 def get_token_path(path):
@@ -55,18 +34,15 @@ def tokenize_path(path):
         if artical.startswith("_"):
             continue
 
-        write_tokens(tokens_path + "/" + artical, tokenize(get_article(path + "/" + artical)))
+        file_util.write_dic(tokens_path + "/" + artical, tokenize(article_util.get_article(path + "/" + artical)))
 
+    return tokens_path
 
-tokenize_path("training")
-tokenize_path("test")
-
-
-# tokens = tokenize(get_article("training/abbasGuclu_11.txt"))
+# tokens = tokenize(article_util.get_article("training/abbasGuclu_12.txt"))
 
 # print(tokens)
 # print("Length = " + str(len(tokens)))
 
-# write_tokens("testing_token_write.txt", tokens)
+# file_util.write_dic("testing_token_write.txt", tokens)
 # print(20 * "=")
-# print(read_tokens("testing_token_write.txt"))
+#print(file_util.read_dic("testing_token_write.txt"))
