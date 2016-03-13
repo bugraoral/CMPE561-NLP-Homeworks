@@ -17,7 +17,6 @@ def load_tokenized_articals(tokens_path):
 
     for file in token_files:
         article_tokens = file_util.read_dic(tokens_path + "/" + file)
-        print(article_tokens)
         articles_tokens.append(article_tokens)
 
     return articles_tokens
