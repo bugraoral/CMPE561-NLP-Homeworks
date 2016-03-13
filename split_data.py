@@ -46,8 +46,8 @@ def split_data(path="raw_texts", split_ratio=0.6):
                 shutil.copy2(articalsDir + '/' + articals[i], TEST_DIR + "/" + author + "_" + articals[i])
                 test_label_file.write(author + "\n")
 
-    training_size = len(os.listdir(TRAINING_DIR))
-    test_size = len(os.listdir(TEST_DIR))
+    training_size = len(os.listdir(TRAINING_DIR)) - 1
+    test_size = len(os.listdir(TEST_DIR)) - 1
     print("Number of training instance = " + str(training_size))
     print("Number of test instance = " + str(test_size))
 
