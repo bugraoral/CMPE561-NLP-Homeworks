@@ -53,5 +53,3 @@ def split_data(path="raw_texts", split_ratio=0.6):
 
     print("Split ratio : " + str((training_size / (training_size + test_size))))
 
-
-split_data()
