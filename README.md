@@ -1,4 +1,4 @@
-# bow_author_prediction
+# Bag of Words Author Prediction
 Bag of words Author prediction with Multinomial Naive Bayes
 
 #Data set
