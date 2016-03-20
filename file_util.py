@@ -3,10 +3,14 @@ import json
 
 def write_dic(filename, tokens, f_encoding='windows-1254'):
     with open(filename, 'w', encoding=f_encoding) as file:
-        json.dump(tokens, file, ensure_ascii=False)
+        try:
+            json.dump(tokens, file, ensure_ascii=True)
+        except:
+            print("Error writing +" + "=" * 25)
+            print(tokens)
 
-        # with open(filename, 'wb') as handle:
-        #    pickle.dump(tokens, handle)
+            # with open(filename, 'wb') as handle:
+            #    pickle.dump(tokens, handle)
 
 
 def read_dic(filename, f_encoding='windows-1254'):

@@ -1,6 +1,7 @@
 import collections
 import math
 import operator
+
 from collections import Counter
 
 
@@ -12,6 +13,7 @@ class NaiveBayes:
         self._classes = list(set(labels))
         self._p_c = dict()
         self._class_word_occurrence = collections.defaultdict(dict)
+        self._vocabulary = dict()
 
         counter = Counter(labels)
 
@@ -29,6 +31,10 @@ class NaiveBayes:
                         self._class_word_occurrence[article_class][token] += article.get(token)
                     else:
                         self._class_word_occurrence[article_class][token] = article.get(token)
+                    if token in self._vocabulary:
+                        self._vocabulary[token] += article.get(token)
+                    else:
+                        self._vocabulary[token] = article.get(token)
 
         self._class_token_counts = dict()
 
@@ -40,14 +46,16 @@ class NaiveBayes:
         probabilities = dict()
 
         for article_class in self._classes:
-            probabilities[article_class] = math.log10(self._p_c[article_class])
+            probabilities[article_class] = math.log1p(self._p_c[article_class])
 
             for token in document.keys():
                 token_in_class_count = 0
                 if token in self._class_word_occurrence[article_class]:
                     token_in_class_count = self._class_word_occurrence[article_class][token]
-                probabilities[article_class] += math.log10(
-                    ((token_in_class_count + 1) / (self._class_token_counts[article_class] + len(document))) * document[
-                        token])
+                probabilities[article_class] += math.log1p(
+                    ((token_in_class_count + 1) / (self._class_token_counts[article_class]) + len(self._vocabulary)) *
+                    document[token])
 
-        return max(probabilities, key=operator.itemgetter(1))[0]
+        author = max(probabilities, key=operator.itemgetter(1))
+        # print("Author Prob : " + str(probabilities[author]))
+        return author

@@ -8,12 +8,17 @@ import file_util
 
 TOKENS_PATH_SUFFIX = "tokens"
 
-token_regex = re.compile("\w+")
+token_regex = re.compile("\w\w+")
 
 
 def tokenize(article):
     article_tokens = re.findall(token_regex, article)
-    return dict(Counter(article_tokens))
+    article_tokens = map(str.lower, article_tokens)
+    article_tokens = dict(Counter(article_tokens))
+
+    article_tokens['NOfWords'] = len(re.findall(token_regex, article))
+    article_tokens['NOfCommas'] = len(re.findall(',', article))
+    return article_tokens
 
 
 def get_token_path(path):
@@ -45,4 +50,4 @@ def tokenize_path(path):
 
 # file_util.write_dic("testing_token_write.txt", tokens)
 # print(20 * "=")
-#print(file_util.read_dic("testing_token_write.txt"))
+# print(file_util.read_dic("testing_token_write.txt"))

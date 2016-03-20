@@ -10,18 +10,27 @@ from naive_bayes import NaiveBayes
 TEST_PATH = "test"
 TRAINING_PATH = "training"
 
+RUN_DIRTY = False
+VERBOSE = True
+
 
 def clean_up():
-    shutil.rmtree(TRAINING_PATH)
-    shutil.rmtree(TEST_PATH)
-    shutil.rmtree(tokenizer.get_token_path(TRAINING_PATH))
-    shutil.rmtree(tokenizer.get_token_path(TEST_PATH))
+    if os.path.exists(TRAINING_PATH):
+        shutil.rmtree(TRAINING_PATH)
+    if os.path.exists(TEST_PATH):
+        shutil.rmtree(TEST_PATH)
+    if os.path.exists(tokenizer.get_token_path(TRAINING_PATH)):
+        shutil.rmtree(tokenizer.get_token_path(TRAINING_PATH))
+    if os.path.exists(tokenizer.get_token_path(TEST_PATH)):
+        shutil.rmtree(tokenizer.get_token_path(TEST_PATH))
 
 
-clean_up()
+if not RUN_DIRTY:
+    clean_up()
 
-print("Splicing raw data")
-split_data.split_data("raw_texts")
+if not RUN_DIRTY and not os.path.exists(TRAINING_PATH) and not os.path.exists(TEST_PATH):
+    print("Splicing raw data")
+    split_data.split_data("raw_texts")
 
 training_labels_file = TRAINING_PATH + "/_label"
 test_labels_file = TEST_PATH + "/_label"
@@ -54,15 +63,25 @@ naive_bayes = NaiveBayes(training_set_tokens, training_labels)
 print("Validating with training set")
 correctClassification = 0
 for i in range(len(training_set_tokens)):
-    if naive_bayes.classify(training_set_tokens[i]) == training_labels[i]:
+    predictedClass = naive_bayes.classify(training_set_tokens[i])
+    if VERBOSE:
+        print("Predicted " + training_labels[i] + " as " + predictedClass)
+    if predictedClass == training_labels[i]:
         correctClassification += 1
 
+print("Number of correct classifications " + str(correctClassification))
 print("Success Rate = %" + str((correctClassification / len(training_labels)) * 100))
+
+print("*" * 50)
 
 print("Validating with test set")
 correctClassification = 0
 for i in range(len(test_set_tokens)):
-    if naive_bayes.classify(test_set_tokens[i]) == test_labels[i]:
+    predictedClass = naive_bayes.classify(test_set_tokens[i])
+    if VERBOSE:
+        print("Predicted " + test_labels[i] + " as " + predictedClass)
+    if predictedClass == test_labels[i]:
         correctClassification += 1
 
+print("Number of correct classifications " + str(correctClassification))
 print("Success Rate = %" + str((correctClassification / len(test_labels)) * 100))
