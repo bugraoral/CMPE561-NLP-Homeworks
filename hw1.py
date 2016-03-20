@@ -10,7 +10,7 @@ from naive_bayes import NaiveBayes
 TEST_PATH = "test"
 TRAINING_PATH = "training"
 
-RUN_DIRTY = False
+RUN_DIRTY = True
 VERBOSE = True
 
 
