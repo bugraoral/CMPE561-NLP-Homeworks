@@ -24,3 +24,11 @@ def read_dic(filename, f_encoding='windows-1254'):
 def read_line_list(filename, f_encoding='windows-1254'):
     with open(filename, 'r', encoding=f_encoding) as file:
         return file.read().splitlines()
+
+
+def write_csv(filename, data):
+    with open(filename + ".csv", 'w') as of:
+        for row in data:
+            of.write(row + ";")
+            of.write(str(data[row]))
+            of.write("\n")
