@@ -7,8 +7,10 @@ Bag of words Author prediction with Multinomial Naive Bayes
 #How To Run
 This project was built using Python 3.5. 
 
-Use the following command to run with default configurations
+Use the following command to run with default configurations. It's important to be in the same directory with the script
+when it's executed.
 ```
+$cd hw1
 $python3.5 hw1.py 
 ```
 
