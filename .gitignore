@@ -1,7 +1,7 @@
 /.idea
-/training
-/test
-/training_tokens
-/test_tokens
+*/training
+*/test
+*/training_tokens
+*/test_tokens
 *.csv
 __pycache__/
