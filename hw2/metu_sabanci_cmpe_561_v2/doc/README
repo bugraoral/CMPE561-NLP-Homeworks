@@ -1,0 +1,178 @@
+This is the readme file for the Turkish part of the CONLL-XI Shared Task.
+
+Version: $Id: README,v 1.3 2007/01/28 10:55:57 dyuret Exp $
+
+
+Note: this file contains Unicode characters
+
+
+1. Preamble
+
+    1.1 Source
+
+        METU-Sabanci Turkish Treebank, in the corrected version
+        received from Gülşen Eryiğit on 28 January 2007.
+
+	Original file size, date, name:
+	396190 Jan 28 12:43 treebank_beta.0.2.n.rar
+	Further processing by Deniz Yuret:
+	1. Encoding converted from Latin-5 to UTF-8.
+	2. Newlines converted to unix format using dos2unix.
+	3. Sentences that did not pass the validation were manually
+	deleted.
+
+	Note: METU is the English abbreviation for the Middle East
+	Technical University. ODTÜ is the Turkish abbreviation, so in
+	Turkish, the Treebank is called ODTÜ-Sabancı.
+
+    1.2 License
+
+        See metu_sabanci_license.txt
+
+
+2. Documentation
+
+    2.1 Data format
+
+        Data adheres to the following rules:
+
+        * Data files contain one or more sentences separated by a
+          blank line.
+
+        * A sentence consists of one or tokens, each one starting on a
+          new line.
+
+        * A token consists of ten fields described in the list
+          below. Fields are separated by one tab.
+
+        * All data files will contains these ten fields, although only
+          the ID, FORM, CPOSTAG, POSTAG, HEAD and DEPREL columns are
+          guaranteed to contain non-underscore values for all
+          languages.  Turkish has an exception to this rule for the 
+	  FORM field as explained below.
+
+        * Data files are UTF-8 encoded (Unicode).
+
+        Field 1: ID         
+
+          Token counter, starting at 1 for each new sentence.
+
+        Field 2: FORM
+
+          Word form or punctuation mark.
+
+          In the CoNLL-XI Turkish data, the '_' in the FORM column are
+	  for non-last IGs in a word, see below, section 2.3 Conversion
+
+	  Both punctuation and non-last IGs with FORM='_' will be scored 
+	  in CoNLL-XI.
+
+        Field 3: LEMMA         
+
+          The lemma of the FORM. Non-first IGs in a word have '_' as
+          the lemma.
+
+        Field 4: CPOSTAG 
+
+          Coarse-grained part-of-speech tag. See the Appendix of
+          ttbankkl.pdf for a full list ("Major Parts of Speech").
+
+        Field 5: POSTAG         
+
+          Fine-grained part-of-speech tag. See the Appendix of
+          ttbankkl.pdf for a full list ("Minor Parts of Speech"). In
+          most cases, the "Minor Part of Speech" fully determines the
+          "Major Part of Speech". In those cases, POSTAG simply
+          contains the "Minor Part of Speech". However, the "Minor
+          Parts of Speech" 'PastPart' and 'FutPart' occur with nouns
+          as well as adjectives. We have therefore prefixed them (and
+          'Inf' and 'PresPart' for consistency as well) with 'N' and
+          'A' respectively.
+	  If no "Minor Part of Speech" is given in the treebank,
+          POSTAG is identical to CPOSTAG.
+
+        Field 6: FEATS         
+
+          List of set-valued syntactic and/or morphological
+          features. See the Appendix of ttbankkl.pdf for a full list
+          with explanations.
+
+        Fields 7: HEAD         
+
+          Head of current token, which is either a value of ID or zero ('0').
+          A value of zero means the token attaches to the virtual root node.
+          The dependency structure resulting from the HEAD information can be
+          non-projective. 
+        
+        Field 8: DEPREL         
+
+          Dependency relation to the HEAD. As the labels are in
+          English, they should be relatively obvious. In addition, see
+          user_guide.pdf (section 2.1 YAPISAL ROLLER) for example
+          sentences in graphical form.  During the conversion, we
+          introduced two additional DEPREL's: 'ROOT' for a token with
+          HEAD=0 (unless a different DEPREL is available from the
+          treebank), and 'DERIV' for non-last inflectional groups
+          (IGs), see below, section 2.3 Conversion.
+         
+        Field 9: PHEAD         
+
+          Projective head of current token, which is always an
+          underscore because it is not available from the Turkish
+          treebank.
+
+        Field 10: PDEPREL 
+
+          Dependency relation to projective head, which is always an
+          underscore, because it is not available from the Turkish
+          treebank.
+
+    2.2 Text
+
+        The texts in the METU-Sabanci Turkish Treebank come from the
+        balanced METU-Sabanci Corpus. They are extracts of novels,
+        news, etc. See user_guide.pdf (in Turkish) for an overview of
+        proportions of the genres. 
+
+    2.3 Conversion
+
+        The Turkish treebank annotates dependencies not between words
+        (which are quite complex in Turkish because it's an
+        agglutinative language) but between inflectional groups (IGs),
+        see ttbankkl.pdf. Each word consists of one or more inflection
+        groups. An inflection group consists of either a stem or a
+        derivational suffix, and all the inflectional suffixes
+        belonging to that stem/derivational suffix. 
+
+        It's a bit like saying that in "the usefulness of X for Y",
+        "for Y" links to "use-" and not to "usefulness". Only that in
+        Turkish, "use", "full" and "ness" each could have their own
+        inflectional suffixes attached to them.
+
+        In the CoNLL-X data, the '_' in the FORM column are for
+        non-last IGs in a word. Those IGs will always link to the next
+        IG and have deprel 'DERIV', so they should be very easy for
+        machine learners.  These tokens will be scored like any other.
+
+        Ideally, derivational suffixes should have a form and a stem
+        as well (unless it's zero derivation) but that information is
+        not yet available in the treebank. It might be in future
+        versions.
+
+        Most punctuation is unattached in the original
+        treebank (or attached to the virtual root node in an
+        alternative interpretation). However, some punctuation
+        characters are attached and have children. These mainly occur
+        with coordination and indirect speech. In addition, the main
+        verb is a child of the end-of-sentence punctuation.
+
+    3. Acknowledgements
+        
+       Bilge Say and Kemal Oflazer for granting the license for
+       CoNLL-XI.
+	
+       Ruken Cakici for suggesting corrections.
+
+       Gülşen (Cebiroğlu) Eryiğit for making lots of corrections to
+       the treebank and discussing some aspects of the conversion.
+

@@ -1,0 +1,50 @@
+                      User agreement for
+            METU-Sabanci (ODTÜ-Sabancı) Turkish Treebank
+                              in
+                   CoNLL-XI shared task format
+
+
+I will use the METU-Sabanci (ODTÜ-Sabancı) Turkish Treebank in CoNLL-XI
+shared task format for research purposes only. I will not in any
+original or modified form distribute the data or part of the data.
+
+I will cite the following references in any publication reporting
+about results obtained on these data:
+
+Kemal Oflazer, Bilge Say, Dilek Zeynep Hakkani-Tür, Gökhan Tür,
+"Building a Turkish Treebank", Invited chapter in "Building and
+Exploiting Syntactically-annotated Corpora", Anne Abeille Editor,
+Kluwer Academic Publishers, 2003.
+
+Nart B. Atalay, Kemal Oflazer, Bilge Say, "The Annotation Process in
+the Turkish Treebank", in "Proceedings of the EACL Workshop on
+Linguistically Interpreted Corpora - LINC", April 13-14, 2003,
+Budapest, Hungary
+
+
+
+Name:               
+
+University or
+Research Institute: 
+
+Adress:             
+
+Telephone:          
+
+Fax:                
+
+Email:              
+
+
+
+Signature:          __________________________________________________
+
+Date:               
+
+
+
+Note:
+The original treebank can be obtained from
+http://www.ii.metu.edu.tr/~corpus/treebank.html
+
