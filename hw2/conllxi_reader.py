@@ -15,8 +15,7 @@ def read_conllxi(path):
 
     return sentences
 
-
-sentences = read_conllxi("metu_sabanci_cmpe_561_v2/train/turkish_metu_sabanci_train.conll")
+# sentences = read_conllxi("metu_sabanci_cmpe_561_v2/train/turkish_metu_sabanci_train.conll")
 
 # for sentence in sentences:
 #    print(sentence.get_human_sentence())

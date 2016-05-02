@@ -16,3 +16,6 @@ class Sentence:
                 sentence += " " + form
 
         return sentence
+
+    def get_tokens(self):
+        return self._tokens
