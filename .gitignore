@@ -5,3 +5,4 @@
 */test_tokens
 *.csv
 __pycache__/
+.*

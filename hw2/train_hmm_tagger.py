@@ -73,7 +73,7 @@ def train(training_path, tag_type):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('path', help='Re-split and tokenize')
+    parser.add_argument('path', help='Path of training data')
     parser.add_argument('--postag', action="store_true",
                         help='uses cpostag by default input --postag to switcg')
     parser.add_argument('--cpostag', action="store_true",
@@ -88,7 +88,5 @@ if __name__ == "__main__":
         TAGTYPE = 3
 
     print(TRAINING_PATH + " " + str(TAGTYPE))
-
-    train(TRAINING_PATH, TAGTYPE)
 
 # train("metu_sabanci_cmpe_561_v2/train/turkish_metu_sabanci_train.conll", 3)
