@@ -1,15 +1,73 @@
 import argparse
 
-TRAINING_PATH = None
-TAGTYPE_POSTAG = None
+import hw2.conllxi_reader as conllxi_reader
+import hw2.file_util as file_util
 
 START = "start"
-END = "end"
 
 
-def train():
-    assert TRAINING_PATH is not None
-    assert TAGTYPE_POSTAG is not None
+def train(training_path, tag_type):
+    assert training_path is not None
+    assert tag_type is not None
+
+    sentences = conllxi_reader.read_conllxi(training_path)
+
+    transition_prob = dict(dict())
+    word_prob = dict(dict())
+    tag_occurence = dict()
+
+    for sentence in sentences:
+        tokens = sentence.get_valid_tokens()
+
+        for i in range(len(tokens)):
+            word = tokens[i].get_representation()
+            word_tag = tokens[i].get_data()[tag_type]
+            if word not in word_prob:
+                word_prob[word] = dict()
+
+            if word_tag in word_prob[word]:
+                word_prob[word][word_tag] += 1
+            else:
+                word_prob[word][word_tag] = 1
+
+            if i == 0:
+                before = START
+            else:
+                before = tokens[i - 1].get_data()[tag_type]
+
+            if before not in transition_prob:
+                transition_prob[before] = dict()
+
+            if word_tag in transition_prob[before]:
+                transition_prob[before][word_tag] += 1
+            else:
+                transition_prob[before][word_tag] = 1
+
+            if word_tag in tag_occurence:
+                tag_occurence[word_tag] += 1
+            else:
+                tag_occurence[word_tag] = 1
+
+            if before == START:
+                if START in tag_occurence:
+                    tag_occurence[START] += 1
+                else:
+                    tag_occurence[START] = 1
+
+    for before in transition_prob:
+        for word_tag in transition_prob[before]:
+            transition_prob[before][word_tag] = transition_prob[before][word_tag] / tag_occurence[before]
+
+    for word in word_prob:
+        for word_tag in word_prob[word]:
+            word_prob[word][word_tag] = word_prob[word][word_tag] / tag_occurence[word_tag]
+
+    file_util.write_dic(".transition_prob", transition_prob)
+    file_util.write_dic(".word_prob", word_prob)
+
+    # written_tr_prob = file_util.read_dic(".transition_prob")
+    # written_word_prob = file_util.read_dic(".word_prob")
+
 
 
 if __name__ == "__main__":
@@ -24,8 +82,13 @@ if __name__ == "__main__":
     opts = parser.parse_args()
 
     TRAINING_PATH = opts.path
-    TAGTYPE_POSTAG = opts.postag
+    if opts.postag:
+        TAGTYPE = 4
+    else:
+        TAGTYPE = 3
 
-    print(TRAINING_PATH + " " + str(TAGTYPE_POSTAG))
+    print(TRAINING_PATH + " " + str(TAGTYPE))
 
-    train()
+    train(TRAINING_PATH, TAGTYPE)
+
+# train("metu_sabanci_cmpe_561_v2/train/turkish_metu_sabanci_train.conll", 3)

@@ -7,15 +7,22 @@ class Sentence:
         for item in sentence_block:
             self._tokens.append(Word(item))
 
+    def get_tokens(self):
+        return self._tokens
+
+    def get_valid_tokens(self):
+        valids = []
+
+        for item in self._tokens:
+            if item.get_form() != "_":
+                valids.append(item)
+
+        return valids
+
     def get_human_sentence(self):
         sentence = ""
 
-        for token in self._tokens:
-            form = token.get_form()
-            if form != "_":
-                sentence += " " + form
+        for token in self.get_valid_tokens():
+            sentence += " " + token.get_form()
 
         return sentence
-
-    def get_tokens(self):
-        return self._tokens
