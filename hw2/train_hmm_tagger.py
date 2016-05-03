@@ -3,7 +3,7 @@ import argparse
 import hw2.conllxi_reader as conllxi_reader
 import hw2.file_util as file_util
 
-START = "start"
+START = "_start"
 
 
 def train(training_path, tag_type):
@@ -20,6 +20,7 @@ def train(training_path, tag_type):
         tokens = sentence.get_valid_tokens()
 
         for i in range(len(tokens)):
+
             word = tokens[i].get_representation()
             word_tag = tokens[i].get_data()[tag_type]
             if word not in word_prob:
@@ -69,7 +70,6 @@ def train(training_path, tag_type):
     # written_word_prob = file_util.read_dic(".word_prob")
 
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
@@ -89,4 +89,4 @@ if __name__ == "__main__":
 
     print(TRAINING_PATH + " " + str(TAGTYPE))
 
-# train("metu_sabanci_cmpe_561_v2/train/turkish_metu_sabanci_train.conll", 3)
+train("metu_sabanci_cmpe_561_v2/train/turkish_metu_sabanci_train.conll", 3)

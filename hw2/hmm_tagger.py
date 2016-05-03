@@ -4,7 +4,7 @@ import shutil
 import hw2.conllxi_reader as conllxi_reader
 import hw2.file_util as file_util
 
-START = "start"
+START = "_start"
 
 
 def tag(data_file, output_file):
@@ -21,11 +21,23 @@ def tag(data_file, output_file):
     for sentence in sentences:
         tokens = sentence.get_valid_tokens()
 
-        get_tags(sentence, tag_transition_prob, word_tag_prob)
+        get_tags(tokens, tag_transition_prob, word_tag_prob)
 
 
-def get_tags(sentence, tag_transition_prob, word_tag_prob):
-    pass
+def get_tags(tokens, tag_transition_prob, word_tag_prob):
+    viterbi = dict(dict())
+    viterbi[0] = dict()
+
+    backpointer = dict(dict())
+    backpointer[0] = dict()
+    for tag in tag_transition_prob:
+        if tag == START:
+            continue
+        viterbi[0][tag] = tag_transition_prob[START][tag] * word_tag_prob[tokens[0].get_representation()]
+
+    for token in tokens[1:]:
+        for tag in tag_transition_prob:
+
 
 
 if __name__ == "__main__":
