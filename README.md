@@ -1,5 +1,5 @@
 # CMPE 561 NLP Homework Repo
-This repository includes different tasks assigned in CMPE 561 course
+This repository includes different tasks assigned in CMPE 561 Course
 
 
 #Hw-1

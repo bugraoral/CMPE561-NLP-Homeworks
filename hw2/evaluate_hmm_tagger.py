@@ -1,9 +1,8 @@
 import argparse
 
+import conllxi_reader
+import file_util
 from pandas import DataFrame
-
-import hw2.conllxi_reader as conllxi_reader
-import hw2.file_util as file_util
 
 SEPARATOR = '|'
 TAG_TYPE = None
@@ -58,8 +57,6 @@ def evaluate(output, gold):
     print("===" * 50)
 
     df.to_csv(output + "_confusion.csv", encoding='utf-8')
-
-
 
 
 if __name__ == "__main__":
