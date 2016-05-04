@@ -1,24 +1,20 @@
-# Bag of Words Author Prediction
-Bag of words Author prediction with Multinomial Naive Bayes
+# CMPE 561 NLP Homework Repo
+This repository includes different tasks assigned in CMPE 561 course
 
-#Data set
-69 Authors dataset from http://www.kemik.yildiz.edu. tr/?id=28
+
+#Hw-1
+Bag-of-words author prediction
+
+#Hw-2
+Part of Speech Tagging with Viterbi
 
 #How To Run
-This project was built using Python 3.5. 
+This repo was written using Python 3.5.
+More information about how to run the homeworks are written in their respective paths.
 
 Use the following command to run with default configurations. It's important to be in the same directory with the script
 when it's executed.
 ```
 $cd hw1
-$python3.5 hw1.py 
-```
-
-More options are
-```
- -t or --training Training set Path
- -v or --validation Test set Path
- -r or --path Raw dataset path
- -d or --dirty Re-split and tokenize if set to true than the pregenerated split and token paths will be used if they exist
- -vb or --verbose verbose loggining predictions
+$python3.5 script.py
 ```
