@@ -1,5 +1,7 @@
 import argparse
 
+from pandas import DataFrame
+
 import hw2.conllxi_reader as conllxi_reader
 import hw2.file_util as file_util
 
@@ -38,16 +40,24 @@ def evaluate(output, gold):
             print(predicted_row[0] + " is not " + gold_row[0])
             continue
 
+        if gold_row[1] not in confusion:
+            confusion[gold_row[1]] = dict()
+
         if predicted_row[1] != gold_row[1]:
             error_counter += 1
-            if predicted_row[1] not in confusion:
-                confusion[predicted_row[1]] = dict()
-            if gold_row[1] not in confusion[predicted_row[1]]:
-                confusion[predicted_row[1]][gold_row[1]] = 1
+            if predicted_row[1] not in confusion[gold_row[1]]:
+                confusion[gold_row[1]][predicted_row[1]] = 1
             else:
-                confusion[predicted_row[1]][gold_row[1]] += 1
+                confusion[gold_row[1]][predicted_row[1]] += 1
 
+    print("===" * 50)
     print("Overall result %" + str(((total_counter - error_counter) / total_counter) * 100))
+    print("===" * 50)
+    df = DataFrame(confusion).T.fillna(0)
+    print(df.to_string())
+    print("===" * 50)
+
+
 
 
 if __name__ == "__main__":
