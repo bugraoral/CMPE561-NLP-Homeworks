@@ -89,4 +89,4 @@ if __name__ == "__main__":
 
     print(TRAINING_PATH + " " + str(TAGTYPE))
 
-train("metu_sabanci_cmpe_561_v2/train/turkish_metu_sabanci_train.conll", 3)
+    train(TRAINING_PATH, TAGTYPE)
