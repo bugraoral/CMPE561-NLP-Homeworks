@@ -57,6 +57,8 @@ def evaluate(output, gold):
     print(df.to_string())
     print("===" * 50)
 
+    df.to_csv(output + "_confusion.csv", encoding='utf-8')
+
 
 
 
