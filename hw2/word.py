@@ -17,6 +17,9 @@ class Word:
     def get_data(self):
         return self._data
 
+    def set_lemma(self, lemma):
+        self._data[2] = lemma
+
     def get_representation(self):
         lemma = self.get_lemma()
 
