@@ -1,7 +1,7 @@
 import argparse
 
-import hw2.conllxi_reader as conllxi_reader
-import hw2.file_util as file_util
+import conllxi_reader
+import file_util
 
 START = "_start"
 
@@ -84,9 +84,9 @@ if __name__ == "__main__":
     TRAINING_PATH = opts.path
     if opts.postag:
         TAGTYPE = 4
+        print("Training " + TRAINING_PATH + " with postag...")
     else:
+        print("Training " + TRAINING_PATH + " with cpostag...")
         TAGTYPE = 3
-
-    print(TRAINING_PATH + " " + str(TAGTYPE))
 
     train(TRAINING_PATH, TAGTYPE)

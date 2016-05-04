@@ -1,8 +1,8 @@
 import argparse
 import os
 
-import hw2.conllxi_reader as conllxi_reader
-import hw2.file_util as file_util
+import conllxi_reader
+import file_util
 
 START = "_start"
 TAG_SEPARATOR = "|"
