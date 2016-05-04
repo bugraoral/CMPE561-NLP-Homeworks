@@ -13,6 +13,9 @@ def read_conllxi(path):
         else:
             temp.append(line)
 
+    if len(temp) != 0:
+        sentences.append(sentence.Sentence(temp))
+
     return sentences
 
 # sentences = read_conllxi("metu_sabanci_cmpe_561_v2/train/turkish_metu_sabanci_train.conll")

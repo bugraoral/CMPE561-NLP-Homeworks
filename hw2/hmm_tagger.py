@@ -1,6 +1,5 @@
 import argparse
 import os
-import shutil
 
 import hw2.conllxi_reader as conllxi_reader
 import hw2.file_util as file_util
@@ -19,7 +18,7 @@ def tag(data_file, output_file):
     output_text = []
 
     if os.path.exists(output):
-        shutil.rmtree(output)
+        os.remove(output)
 
     sentences = conllxi_reader.read_conllxi(data_file)
 
