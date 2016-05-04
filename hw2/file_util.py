@@ -37,4 +37,6 @@ def write_csv(filename, data):
 def write_array(output_file, text_array, f_encoding='UTF-8'):
     with open(output_file, 'w', encoding=f_encoding) as file:
         for item in text_array:
-            file.write(item + '\n')
+            file.write(item)
+            if item != '\n':
+                file.write('\n')
