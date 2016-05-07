@@ -19,6 +19,9 @@ hmm_tagger.py metu_sabanci_cmpe_561_v2/validation/turkish_metu_sabanci_val.conll
 #Evaluation
 The output of the hmm_tagger.py can evaluated using evaluate_hmm_tagger.py
 Here is how you would evaluate the previously generated validation output file.
+The evaluation script depends on pandas framework result visualization. Only the module DataFrame.to_string and to_cvs was used.
+
+To install pandas, please refer to:http://pandas.pydata.org/pandas-docs/stable/install.html
 
 ```
 python3.5 evaluate_hmm_tagger.py validation_results.txt metu_sabanci_cmpe_561_v2/validation/turkish_metu_sabanci_val.conll --postag
