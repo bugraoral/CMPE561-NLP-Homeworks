@@ -77,3 +77,6 @@ class NaiveBayes:
         author = max(probabilities.items(), key=operator.itemgetter(1))[0]
         # print("Author Prob : " + str(probabilities[author]))
         return author
+
+    def get_classes(self):
+        return self._classes

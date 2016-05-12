@@ -30,6 +30,14 @@ def clean_up():
         shutil.rmtree(tokenizer.get_token_path(TEST_PATH))
 
 
+def initialize_dict(param):
+    my_dict = dict()
+
+    for item in param:
+        my_dict[item] = 0
+    return my_dict
+
+
 def main():
     if not RUN_DIRTY:
         clean_up()
@@ -67,30 +75,59 @@ def main():
     naive_bayes = NaiveBayes(training_set_tokens, training_labels)
 
     print("Validating with training set")
-    correctClassification = 0
+
+    training_true_positives = 0
+    training_false_positives = 0
+    training_false_negative = 0
     for i in range(len(training_set_tokens)):
         predictedClass = naive_bayes.classify(training_set_tokens[i], N_OF_WORDS, N_OF_COMMAS)
         if VERBOSE:
             print("Predicted " + training_labels[i] + " as " + predictedClass)
         if predictedClass == training_labels[i]:
-            correctClassification += 1
+            training_true_positives += 1
+        else:
+            training_false_positives += 1
+            training_false_negative += 1
 
-    print("Number of correct classifications " + str(correctClassification))
-    print("Success Rate = %" + str((correctClassification / len(training_labels)) * 100))
+    training_precisions = training_true_positives / (
+        training_true_positives + training_false_positives)
+
+    training__recall = training_true_positives / (
+        training_true_positives + training_false_negative)
+    training_class_f_score = (2 * training_precisions * training__recall) / (
+        training_precisions + training__recall)
+
+    print("Training Precision " + str(training_precisions))
+    print("Training Recall " + str(training__recall))
+    print("Training F-Score " + str(training_class_f_score))
 
     print("*" * 50)
 
     print("Validating with test set")
-    correctClassification = 0
+    test_true_positives = 0
+    test_false_positives = 0
+    test_false_negative = 0
     for i in range(len(test_set_tokens)):
         predictedClass = naive_bayes.classify(test_set_tokens[i], N_OF_WORDS, N_OF_COMMAS)
         if VERBOSE:
             print("Predicted " + test_labels[i] + " as " + predictedClass)
         if predictedClass == test_labels[i]:
-            correctClassification += 1
+            test_true_positives += 1
+        else:
+            test_false_positives += 1
+            test_false_negative += 1
 
-    print("Number of correct classifications " + str(correctClassification))
-    print("Success Rate = %" + str((correctClassification / len(test_labels)) * 100))
+    test_precisions = test_true_positives / (
+        test_true_positives + test_false_positives)
+
+    test__recall = test_true_positives / (
+        test_true_positives + test_false_negative)
+    test_class_f_score = (2 * test_precisions * test__recall) / (
+        test_precisions + test__recall)
+
+    print("Test Precision " + str(test_precisions))
+    print("Test Recall " + str(test__recall))
+    print("Test F-Score " + str(test_class_f_score))
 
 
 if __name__ == "__main__":
