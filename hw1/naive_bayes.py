@@ -43,7 +43,7 @@ class NaiveBayes:
 
         self._classDeliminators = dict()
         for article_class in self._classes:
-            self._classDeliminators[article_class] = len(self._vocabulary)
+            self._classDeliminators[article_class] = 0
             for token in self._vocabulary:
                 if token in self._class_word_occurrence[article_class]:
                     self._classDeliminators[article_class] += self._class_word_occurrence[article_class][token]
@@ -53,6 +53,10 @@ class NaiveBayes:
         probabilities = dict()
 
         for article_class in self._classes:
+
+            if article_class == 'ekremDumanli':
+                x = 3
+
             probabilities[article_class] = math.log1p(self._p_c[article_class])
 
             for token in document.keys():
@@ -62,13 +66,13 @@ class NaiveBayes:
                 if token == 'NOfWords' or token == 'NOfCommas':
                     continue
 
-                token_in_class_count = 0
+                word_in_class_count = 0
                 if token in self._class_word_occurrence[article_class]:
-                    token_in_class_count = self._class_word_occurrence[article_class][token]
+                    word_in_class_count = self._class_word_occurrence[article_class][token]
 
-                token_in_class_count += 1
+                word_in_class_count += 1
                 probabilities[article_class] += math.log1p(
-                    (token_in_class_count / (self._classDeliminators[article_class] + len(self._vocabulary))))
+                    (word_in_class_count / (self._classDeliminators[article_class] + len(self._vocabulary))))
 
         author = max(probabilities.items(), key=operator.itemgetter(1))[0]
         # print("Author Prob : " + str(probabilities[author]))
