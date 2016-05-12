@@ -56,13 +56,19 @@ class NaiveBayes:
             probabilities[article_class] = math.log1p(self._p_c[article_class])
 
             for token in document.keys():
+                '''
+                Extra features
+                '''
+                if token == 'NOfWords' or token == 'NOfCommas':
+                    continue
+
                 token_in_class_count = 0
                 if token in self._class_word_occurrence[article_class]:
                     token_in_class_count = self._class_word_occurrence[article_class][token]
 
                 token_in_class_count += 1
                 probabilities[article_class] += math.log1p(
-                    (token_in_class_count / self._classDeliminators[article_class]) * document[token])
+                    (token_in_class_count / (self._classDeliminators[article_class] + len(self._vocabulary))))
 
         author = max(probabilities.items(), key=operator.itemgetter(1))[0]
         # print("Author Prob : " + str(probabilities[author]))
