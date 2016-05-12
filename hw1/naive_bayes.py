@@ -64,6 +64,6 @@ class NaiveBayes:
                 probabilities[article_class] += math.log1p(
                     (token_in_class_count / self._classDeliminators[article_class]) * document[token])
 
-        author = max(probabilities, key=operator.itemgetter(1))
+        author = max(probabilities.items(), key=operator.itemgetter(1))[0]
         # print("Author Prob : " + str(probabilities[author]))
         return author

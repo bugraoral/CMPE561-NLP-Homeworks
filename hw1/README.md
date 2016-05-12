@@ -26,9 +26,9 @@ $python3.5 main.py -t path_to_raw_data -v path_to_validation_set
 
 To clear all pre-cached values and files
 ```
-$python3.5 main.py -d 
+$python3.5 main.py -d true
 ```
 See more output about running scripts
 ```
-$python3.5 main.py -vb
+$python3.5 main.py -vb true
 ```
