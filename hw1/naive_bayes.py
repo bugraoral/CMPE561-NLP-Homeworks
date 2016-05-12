@@ -54,9 +54,6 @@ class NaiveBayes:
 
         for article_class in self._classes:
 
-            if article_class == 'ekremDumanli':
-                x = 3
-
             probabilities[article_class] = math.log1p(self._p_c[article_class])
 
             for token in document.keys():
@@ -70,9 +67,9 @@ class NaiveBayes:
                 if token in self._class_word_occurrence[article_class]:
                     word_in_class_count = self._class_word_occurrence[article_class][token]
 
-                word_in_class_count += 1
+                word_in_class_count += 0.01
                 probabilities[article_class] += math.log1p(
-                    (word_in_class_count / (self._class_word_count[article_class] + len(self._vocabulary))))
+                    (word_in_class_count / (self._class_word_count[article_class] + 0.01 * len(self._vocabulary))))
 
         author = max(probabilities.items(), key=operator.itemgetter(1))[0]
         # print("Author Prob : " + str(probabilities[author]))
