@@ -24,6 +24,19 @@ $python3.5 main.py -t path_to_training_set
 $python3.5 main.py -t path_to_raw_data -v path_to_validation_set
 ```
 
+To add extra predefined features:
+Number of words:
+
+```
+$python3.5 main.py --nwords
+```
+
+Number of commas:
+
+```
+$python3.5 main.py --ncommas
+```
+
 To run with pre-splited data
 ```
 $python3.5 main.py -d
