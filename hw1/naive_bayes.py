@@ -41,12 +41,12 @@ class NaiveBayes:
         for article_class in self._class_word_occurrence.keys():
             self._class_token_counts[article_class] = sum(self._class_word_occurrence[article_class].values())
 
-        self._classDeliminators = dict()
+        self._class_word_count = dict()
         for article_class in self._classes:
-            self._classDeliminators[article_class] = 0
+            self._class_word_count[article_class] = 0
             for token in self._vocabulary:
                 if token in self._class_word_occurrence[article_class]:
-                    self._classDeliminators[article_class] += self._class_word_occurrence[article_class][token]
+                    self._class_word_count[article_class] += self._class_word_occurrence[article_class][token]
 
     def classify(self, document: dict):
 
@@ -72,7 +72,7 @@ class NaiveBayes:
 
                 word_in_class_count += 1
                 probabilities[article_class] += math.log1p(
-                    (word_in_class_count / (self._classDeliminators[article_class] + len(self._vocabulary))))
+                    (word_in_class_count / (self._class_word_count[article_class] + len(self._vocabulary))))
 
         author = max(probabilities.items(), key=operator.itemgetter(1))[0]
         # print("Author Prob : " + str(probabilities[author]))
