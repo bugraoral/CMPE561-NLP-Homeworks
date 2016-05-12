@@ -24,11 +24,11 @@ $python3.5 main.py -t path_to_training_set
 $python3.5 main.py -t path_to_raw_data -v path_to_validation_set
 ```
 
-To clear all pre-cached values and files
+To run with pre-splited data
 ```
-$python3.5 main.py -d true
+$python3.5 main.py -d
 ```
-To close more output logging
+To see more information
 ```
-$python3.5 main.py -vb false
+$python3.5 main.py -vb
 ```

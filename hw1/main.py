@@ -2,19 +2,21 @@ import argparse
 import os
 import shutil
 
+import article_util
 import file_util
 import split_data
 import tokenizer
 from naive_bayes import NaiveBayes
-
-import article_util
 
 RAW_PATH = "raw_texts"
 TEST_PATH = "test"
 TRAINING_PATH = "training"
 
 RUN_DIRTY = True
-VERBOSE = True
+VERBOSE = False
+
+N_OF_WORDS = False
+N_OF_COMMAS = False
 
 
 def clean_up():
@@ -67,7 +69,7 @@ def main():
     print("Validating with training set")
     correctClassification = 0
     for i in range(len(training_set_tokens)):
-        predictedClass = naive_bayes.classify(training_set_tokens[i])
+        predictedClass = naive_bayes.classify(training_set_tokens[i], N_OF_WORDS, N_OF_COMMAS)
         if VERBOSE:
             print("Predicted " + training_labels[i] + " as " + predictedClass)
         if predictedClass == training_labels[i]:
@@ -81,7 +83,7 @@ def main():
     print("Validating with test set")
     correctClassification = 0
     for i in range(len(test_set_tokens)):
-        predictedClass = naive_bayes.classify(test_set_tokens[i])
+        predictedClass = naive_bayes.classify(test_set_tokens[i], N_OF_WORDS, N_OF_COMMAS)
         if VERBOSE:
             print("Predicted " + test_labels[i] + " as " + predictedClass)
         if predictedClass == test_labels[i]:
@@ -97,8 +99,15 @@ if __name__ == "__main__":
     parser.add_argument('-t', '--training', default=TRAINING_PATH, type=str, help="Training set Path")
     parser.add_argument('-v', '--validation', default=TEST_PATH, type=str, help="Test set Path")
     parser.add_argument('-r', '--path', type=str, default=RAW_PATH, help='Raw data path')
-    parser.add_argument('-d', '--dirty', type=bool, help='Re-split and tokenize')
-    parser.add_argument('-vb', '--verbose', type=bool, default=VERBOSE, help='verbose')
+    parser.add_argument('-d', '--dirty', default=False, action="store_true", help='Re-split and tokenize')
+    parser.add_argument('-vb', '--verbose', default=False, action="store_true", help='verbose')
+
+    parser.add_argument('--nwords', default=False, action="store_true",
+                        help='Add Number of Words to feature set')
+
+    parser.add_argument('--ncommas', default=False, action="store_true",
+                        help='Add Number of Words to feature set')
+
     opts = parser.parse_args()
 
     TRAINING_PATH = opts.training
@@ -106,5 +115,7 @@ if __name__ == "__main__":
     RAW_PATH = opts.path
     RUN_DIRTY = opts.dirty
     VERBOSE = opts.verbose
+    N_OF_WORDS = opts.nwords
+    N_OF_COMMAS = opts.ncommas
 
     main()

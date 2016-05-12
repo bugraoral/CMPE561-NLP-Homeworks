@@ -48,7 +48,7 @@ class NaiveBayes:
                 if token in self._class_word_occurrence[article_class]:
                     self._class_word_count[article_class] += self._class_word_occurrence[article_class][token]
 
-    def classify(self, document: dict):
+    def classify(self, document: dict, n_of_words, n_of_commas):
 
         probabilities = dict()
 
@@ -60,7 +60,10 @@ class NaiveBayes:
                 '''
                 Extra features
                 '''
-                if token == 'NOfWords' or token == 'NOfCommas':
+                if token == 'NOfWords' and n_of_words:
+                    continue
+
+                if token == 'NOfCommas' and n_of_commas:
                     continue
 
                 word_in_class_count = 0
