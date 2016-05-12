@@ -28,7 +28,7 @@ To clear all pre-cached values and files
 ```
 $python3.5 main.py -d true
 ```
-See more output about running scripts
+To close more output logging
 ```
-$python3.5 main.py -vb true
+$python3.5 main.py -vb false
 ```
